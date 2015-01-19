@@ -1,4 +1,10 @@
 # =============== #
+# Stored On USB   #
+# =============== #
+Scenes/
+
+
+# =============== #
 # Unity generated #
 # =============== #
 Temp/
@@ -8,7 +14,8 @@ Library/
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
 ExportedObj/
-obj/
+obj/'
+Assets/Scenes/
 *.svd
 *.userprefs
 /*.csproj
