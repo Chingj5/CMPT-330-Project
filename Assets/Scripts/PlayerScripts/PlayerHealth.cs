@@ -9,8 +9,8 @@ public class PlayerHealth : MonoBehaviour {
 	public AudioClip deathClip;
 	public float flashSpeed=5f;
 	public Color flashColour=new Color(1f,0f,0f,0.1f);
-	Animator anim;
-	AudioSource playerAudio;
+	//Animator anim;
+	//AudioSource playerAudio;
 
 	bool isDead;
 	bool damaged;
@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour {
 		damaged = true;
 		currentHealth -= amount;
 		healthSlider.value = currentHealth;
-		playerAudio.Play ();
+		//playerAudio.Play ();
 
 		if (currentHealth <= 0 && !isDead) {
 			Death();		
@@ -44,10 +44,16 @@ public class PlayerHealth : MonoBehaviour {
 
 
 	}
+	public void playerStarves(){
+
+		currentHealth = 0;
+		healthSlider.value = currentHealth;
+		Death ();
+	}
 	void Death(){
 		isDead = true;
-		anim.SetTrigger ("Die");
-		playerAudio.clip = deathClip;
-		playerAudio.Play ();
+		//anim.SetTrigger ("Die");
+		//playerAudio.clip = deathClip;
+		//playerAudio.Play ();
 	}
 }

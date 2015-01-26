@@ -9,16 +9,24 @@ public class PlayerHunger : MonoBehaviour {
 	bool isDead;
 	public Text hungerText;
 	int hunger;
+	public PlayerHealth playerHealth;
+	GameObject player;
 	// Use this for initialization
 	void Start () {
+		player = GameObject.FindGameObjectWithTag("Player");
 		currentHunger = startingHunger;
-
+		playerHealth = player.GetComponent<PlayerHealth> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		currentHunger=currentHunger-1;
+		if (hunger > 0) {
+			currentHunger = currentHunger - 1;
+		}
 		hunger = (int)((currentHunger / startingHunger) * 100);
 		hungerText.text=hunger.ToString();
+		if (hunger <= 0) {
+			playerHealth.playerStarves();
+		}
 	}
 }
