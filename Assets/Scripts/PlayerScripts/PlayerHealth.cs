@@ -1,28 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-public class PlayerHealth : MonoBehaviour {
-	public int startingHealth = 100;
-	public int currentHealth;
-	public Slider healthSlider;
-	public Image damageImage;
-	public AudioClip deathClip;
-	public float flashSpeed=5f;
-	public Color flashColour=new Color(1f,0f,0f,0.1f);
+
+public class PlayerHealth {
+	private int 		startingHealth = 100;                 
+	private int 		currentHealth;
+	private Image 		damageImage;
+	private AudioClip 	deathClip;
+	private float 		flashSpeed=5f;
+	private Color 		flashColour=new Color(1f,0f,0f,0.1f);
 	//Animator anim;
 	//AudioSource playerAudio;
+	
+	private bool 		damaged;
 
-	bool isDead;
-	bool damaged;
-
-	void Start () {
+	public PlayerHealth () {
 		currentHealth = startingHealth;
-
-
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
 		if (damaged) {
 			damageImage.color = flashColour;
 		}
@@ -35,25 +32,22 @@ public class PlayerHealth : MonoBehaviour {
 	public void TakeDamage(int amount){
 		damaged = true;
 		currentHealth -= amount;
-		healthSlider.value = currentHealth;
+		// healthSlider.value = currentHealth;
 		//playerAudio.Play ();
-
-		if (currentHealth <= 0 && !isDead) {
-			Death();		
-		}
-
-
 	}
-	public void playerStarves(){
 
-		currentHealth = 0;
-		healthSlider.value = currentHealth;
-		Death ();
-	}
-	void Death(){
-		isDead = true;
+	public bool Dead(){
+		// do something.
 		//anim.SetTrigger ("Die");
 		//playerAudio.clip = deathClip;
 		//playerAudio.Play ();
+		if (currentHealth <= 0) 
+			return true;
+		else 
+			return false;
+	}
+
+	public float GetHealth() {
+		return currentHealth;
 	}
 }

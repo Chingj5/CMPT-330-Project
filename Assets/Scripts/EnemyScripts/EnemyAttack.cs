@@ -4,16 +4,18 @@ using System.Collections;
 public class EnemyAttack : MonoBehaviour {
 	public float timeBetweenAttacks = 0.5f;
 	public int attackDamage = 10;
+	private GameObject playerdb_object;
+	private PlayerDatabase playerdb;
 	Animator anim;
 	GameObject player;
-	PlayerHealth playerHealth;
 	bool playerInRange;
 	float timer;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
-		playerHealth = player.GetComponent<PlayerHealth> ();
 		anim = GetComponent<Animator> ();
+		playerdb_object = GameObject.Find ("PlayerDB");	
+		playerdb = playerdb_object.GetComponent<PlayerDatabase>();
 	}
 	//determines if player is in range of monster
 	void OnTriggerEnter(Collider other){
@@ -36,15 +38,15 @@ public class EnemyAttack : MonoBehaviour {
 		if (timer >= timeBetweenAttacks && playerInRange) {
 			Attack();		
 		}
-		if (playerHealth.currentHealth <= 0) {
+		if (!playerdb.playerAlive) {
 			anim.SetTrigger("PlayerDead");		
 		}
 	}
 
 	void Attack(){
 		timer = 0;
-		if (playerHealth.currentHealth > 0) {
-			playerHealth.TakeDamage(attackDamage);		
+		if (playerdb.playerAlive) {
+			playerdb.health.TakeDamage(attackDamage);		
 		}
 
 	}
